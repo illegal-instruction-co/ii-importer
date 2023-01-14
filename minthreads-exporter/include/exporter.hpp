@@ -18,7 +18,8 @@ namespace ii {
 				exporter(const std::string_view& mod) noexcept : m_moduleName(std::move(mod)) {
 					m_module = (HANDLE)CustomAPI::GetModuleA(m_moduleName.data());
 					
-					if (!m_module) m_module = LoadLibraryA(m_moduleName.data());
+					if (!m_module)
+						assert("We cannot export from a library that is not already loaded. Module %s", m_moduleName);
 
 					m_dosHeader = (PIMAGE_DOS_HEADER)m_module;
 					
