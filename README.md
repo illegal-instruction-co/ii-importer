@@ -15,3 +15,7 @@ Just run build.cmd, your sln or what ever will be appears in "build" directory.
 
 **Explain the example**
 I wanted to run GetModuleHandleA function from Kernel32 dynamic library. In this case, I didn't have the GetModuleHandleA template, but I looked online and gave the parameters he wanted, I just focused on the result. I think it's great convenience!
+
+
+credits:
+custom_api.h
