@@ -1,8 +1,8 @@
 
 
-# minthreads-exporter
+# winthreads-exporter
 
-*exporter is a tiny tool i coded for use later in a larger project that I called "minthreads".*
+*exporter is a tiny tool i coded for use later in a larger project that I called "winthreads".*
 
 ## What does this exporter do?
 
