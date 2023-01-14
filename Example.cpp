@@ -1,7 +1,6 @@
 ﻿#include "minthreads-exporter/winthreads.hpp"
 #include <iostream>
 
-
 DWORD WINAPI TheThread(LPVOID lpParam)
 {
 
