@@ -3,7 +3,6 @@
 #include "string_toolkit.hpp"
 #include "custom_api.hpp"
 #include <functional>
-#include <assert.h>
 #include <string_view>
 #include <map>
 #include <iostream>
@@ -19,26 +18,30 @@ namespace ii {
 					m_module = (HANDLE)CustomAPI::GetModuleA(m_moduleName.data());
 					
 					if (!m_module)
-						assert("We cannot export from a library that is not already loaded. Module %s", m_moduleName);
+						printf("We cannot export from %s, because it is not already loaded.", m_moduleName.data()),
+						abort();
 
 					m_dosHeader = (PIMAGE_DOS_HEADER)m_module;
 					
 					if (m_dosHeader->e_magic != IMAGE_DOS_SIGNATURE)
-						assert("Dos header is wrong of module %s", m_moduleName);
+						printf("Dos header is wrong of module %s", m_moduleName.data()), 
+						abort();
 
 					m_ntHeader = (PIMAGE_NT_HEADERS)((LPBYTE)m_module + m_dosHeader->e_lfanew);
 
 					if (m_ntHeader->Signature != IMAGE_NT_SIGNATURE)
-						assert("Could not found nt header for %s", m_moduleName);
+						printf("Could not found nt header for %s", m_moduleName.data()), 
+						abort;
 
 					if (m_ntHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].VirtualAddress == 0)
-						assert("Export directory could not read for %s", m_moduleName);
+						printf("Export directory could not read for %s", m_moduleName);
 
 					m_exportDirectory = (PIMAGE_EXPORT_DIRECTORY)((LPBYTE)m_module + m_ntHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].VirtualAddress);
 
 					m_fetchedFunctions = fetch();
 					if (!m_fetchedFunctions.size())
-						assert("Export directory was empty for %s", m_moduleName);
+						printf("Export directory was empty for %s", m_moduleName.data()),
+						abort();
 				}
 
 				virtual ~exporter() {}
@@ -77,7 +80,7 @@ namespace ii {
 				PIMAGE_NT_HEADERS m_ntHeader;
 				PIMAGE_EXPORT_DIRECTORY m_exportDirectory;
 
-				HANDLE m_module;
+				HANDLE m_module = 0;
 				std::map<std::string, __int64> m_fetchedFunctions;
 				const std::string_view m_moduleName;
 			};
