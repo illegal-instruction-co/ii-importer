@@ -28,7 +28,7 @@ With the exporter it will be like this:
      NTSTATUS ntStat = 0;
      DWORD_PTR dwStartAddress = 0;
      auto exportNtdll = ii::winthreads::core::exporter("ntdll.dll");
-     ntStat = (DWORD)exportNtdll.invoke("NtQueryInformationThread")(hThread, 9, &dwStartAddress, sizeof(dwStartAddress), NULL);
+     ntStat = (NTSTATUS)exportNtdll.invoke("NtQueryInformationThread")(hThread, 9, &dwStartAddress, sizeof(dwStartAddress), NULL);
 
 
 ## Build the example
