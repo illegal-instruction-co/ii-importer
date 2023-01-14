@@ -14,7 +14,7 @@ if(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3")
 endif()
 
-include_directories(minthreads-exporter)
+include_directories(winthreads-exporter)
 
 add_executable(${PROJECT_NAME}
     ${CMAKE_SOURCE_DIR}/Example.cpp
