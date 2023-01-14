@@ -1,7 +1,7 @@
 
 # minthreads-exporter
 
-*exporter is a tiny tool that I called "minthreads", coded for use later in a larger project.*
+*exporter is a tiny tool i coded for use later in a larger project that I called "minthreads".*
 
  **what does this exporter do?**
 
