@@ -21,9 +21,12 @@ int main()
 
     TCHAR buf[MAX_PATH];
 
-    DWORD ret = (DWORD)exportKernel32.invoke("CreateThread")(NULL, 0, TheThread, NULL, 0, NULL);
+    HANDLE tHandle = (HANDLE)exportKernel32.invoke("CreateThread")(NULL, 0, TheThread, NULL, 0, NULL);
     
-    std::cout << "CreateThread returned: " << ret << std::endl;
+    std::cout << "CreateThread returned: " << tHandle << std::endl;
+
+    auto exportNtdll = ii::winthreads::core::exporter("ntdll.dll");
+    std::cout << "Current processor number: " << exportNtdll.invoke("NtGetCurrentProcessorNumber")() << std::endl;
 
     getchar();
 }
