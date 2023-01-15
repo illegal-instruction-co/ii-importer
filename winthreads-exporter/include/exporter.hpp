@@ -18,7 +18,7 @@ namespace ii {
 					m_module = (HANDLE)CustomAPI::GetModuleA(m_moduleName.data());
 					
 					if (!m_module)
-						printf("We cannot export from %s, because it is not already loaded.", m_moduleName.data()),
+						printf("We could not export from %s, because it was not loaded.", m_moduleName.data()),
 						abort();
 
 					m_dosHeader = (PIMAGE_DOS_HEADER)m_module;
@@ -48,9 +48,13 @@ namespace ii {
 
 				__forceinline auto invoke(const char* fn) {
 
-					return [&](...) {
+					auto it = m_fetchedFunctions.find(fn);
+					if (it == m_fetchedFunctions.end())
+						throw std::runtime_error(std::string("Function ") + fn + " not found in module " + m_moduleName.data());
+
+					return [&] (...) {
 						using fn_t = void* (WINAPI*)(...);
-						return (fn_t)m_fetchedFunctions.find(fn)->second;
+						return (fn_t)it->second;
 					}();
 				}
 
