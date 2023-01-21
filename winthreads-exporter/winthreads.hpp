@@ -8,9 +8,5 @@
 
 
 namespace ii {
-	namespace winthreads {
-		namespace type_traits {
-
-		}
-	}
+	namespace winthreads;
 }
