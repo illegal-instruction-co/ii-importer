@@ -1,10 +1,10 @@
 
 
-# winthreads-exporter
+# ii-importer
 
-*exporter is a tiny tool i coded for use later in a larger project that I called "winthreads".*
+*importer is a tiny tool i coded for use later in a larger project that I called "winthreads".*
 
-## What does this exporter do?
+## What does this importer do?
 
 This little friend saves you from the burden of defining the function template while exporting the internal function you need, as you can see in Example.cpp.
 
@@ -22,13 +22,13 @@ Our usage should have been like this:
     DWORD_PTR dwStartAddress = 0;
     ntStat = NtQueryInformationThread(hThread, 9, &dwStartAddress, sizeof(dwStartAddress), NULL);
 
-With the exporter it will be like this:
+With the importer it will be like this:
 	  
      HANDLE hThread;
      NTSTATUS ntStat = 0;
      DWORD_PTR dwStartAddress = 0;
-     auto exportNtdll = ii::winthreads::core::exporter("ntdll.dll");
-     ntStat = (NTSTATUS)exportNtdll.invoke("NtQueryInformationThread")(hThread, 9, &dwStartAddress, sizeof(dwStartAddress), NULL);
+     auto exportNtdll = ii::importer("ntdll.dll");
+     ntStat = exportNtdll.invoke<NTSTATUS>("NtQueryInformationThread")(hThread, 9, &dwStartAddress, sizeof(dwStartAddress), NULL);
 
 
 ## Build the example
@@ -37,7 +37,6 @@ Just run build.cmd, your sln or what ever will be appears in "build" directory.
 
 ## Explain the example
 I wanted to run GetModuleHandleA function from Kernel32 dynamic library. In this case, I didn't have the GetModuleHandleA template, but I looked online and gave the parameters he wanted, I just focused on the result. I think it's great convenience!
-
 
 credits:
 custom_api.h
