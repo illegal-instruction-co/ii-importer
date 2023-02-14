@@ -5,9 +5,9 @@
 #include <functional>
 
 namespace ii {
-	namespace CustomAPI {
+	class CustomAPI {
 
-		wchar_t* GetFileNameFromPath(wchar_t* Path)
+		static wchar_t* GetFileNameFromPath(wchar_t* Path)
 		{
 			wchar_t* LastSlash = NULL;
 			for (DWORD i = 0; Path[i] != NULL; i++)
@@ -17,7 +17,7 @@ namespace ii {
 			}
 			return LastSlash;
 		}
-		wchar_t* RemoveFileExtension(wchar_t* FullFileName, wchar_t* OutputBuffer, DWORD OutputBufferSize)
+		static wchar_t* RemoveFileExtension(wchar_t* FullFileName, wchar_t* OutputBuffer, DWORD OutputBufferSize)
 		{
 			wchar_t* LastDot = NULL;
 			for (DWORD i = 0; FullFileName[i] != NULL; i++)
@@ -38,7 +38,7 @@ namespace ii {
 		}
 
 
-		HMODULE WINAPI GetModuleW(_In_opt_ LPCWSTR lpModuleName)
+		static HMODULE WINAPI GetModuleW(_In_opt_ LPCWSTR lpModuleName)
 		{
 			struct CLIENT_ID
 			{
@@ -162,7 +162,7 @@ namespace ii {
 		}
 
 
-		DWORD64 WINAPI GetModuleA(_In_opt_ LPCSTR lpModuleName) {
+		static DWORD64 WINAPI GetModuleA(_In_opt_ LPCSTR lpModuleName) {
 			DWORD ModuleNameLength = (DWORD)strlen(lpModuleName) + 1;
 
 			////allocate buffer for the string on the stack:
