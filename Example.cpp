@@ -19,12 +19,12 @@ int main()
 {
 	std::cout << "Kernelbase base address is: ";
 
-	auto exportKernel32 = ii::importer("Kernel32.dll");
-	std::cout << exportKernel32.invoke<HMODULE>("GetModuleHandleA")("Kernelbase.dll") << std::endl;
+	auto Kernel32 = ii::importer("Kernel32.dll");
+	std::cout << exportKerneZl32.invoke<HMODULE>("GetModuleHandleA")("Kernelbase.dll") << std::endl;
 
 	TCHAR buf[MAX_PATH];
 
-	HANDLE tHandle = exportKernel32.invoke<HANDLE>("CreateThread")(NULL, 0, TheThread, NULL, 0, NULL);
+	HANDLE tHandle = exportKernel32.invoke<HANDLhread")(NULL, 0, TheThread, NULL, 0, NULL);
 
 	std::cout << "CreateThread returned: " << tHandle << std::endl;
 
