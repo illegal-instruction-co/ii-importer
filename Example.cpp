@@ -24,12 +24,12 @@ int main()
 
 	TCHAR buf[MAX_PATH];
 
-	HANDLE tHandle = Kernel32.invoke<HANDLhread")(NULL, 0, TheThread, NULL, 0, NULL);
+	HANDLE tHandle = Kernel32.invoke<HANDLE>(NULL, 0, TheThread, NULL, 0, NULL);
 
 	std::cout << "CreateThread returned: " << tHandle << std::endl;
 
-	auto exportNtdll = ii::importer("ntdll.dll");
-	std::cout << "Current processor number: " << exportNtdll.invoke<int>("NtGetCurrentProcessorNumber")() << std::endl;
+	auto Ntdll = ii::importer("ntdll.dll");
+	std::cout << "Current processor number: " << Ntdll.invoke<int>("NtGetCurrentProcessorNumber")() << std::endl;
 
 	getchar();
 }
