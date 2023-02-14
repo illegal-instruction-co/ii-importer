@@ -6,7 +6,7 @@
 
 namespace ii {
 	class CustomAPI {
-
+	public:
 		static wchar_t* GetFileNameFromPath(wchar_t* Path)
 		{
 			wchar_t* LastSlash = NULL;
@@ -17,6 +17,7 @@ namespace ii {
 			}
 			return LastSlash;
 		}
+
 		static wchar_t* RemoveFileExtension(wchar_t* FullFileName, wchar_t* OutputBuffer, DWORD OutputBufferSize)
 		{
 			wchar_t* LastDot = NULL;
@@ -177,5 +178,5 @@ namespace ii {
 			return (DWORD64)hReturnModule;
 
 		}
-	}
+	};
 }
