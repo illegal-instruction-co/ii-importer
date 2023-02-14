@@ -6,7 +6,7 @@
 
 ## What does this importer do?
 
-This little friend saves you from the burden of defining the function template while exporting the internal function you need, as you can see in Example.cpp.
+This little friend saves you from the burden of defining the function template while importing the internal function you need, as you can see in Example.cpp.
 
 In general, it is planned to be used for undocumented and user mode definitions, aka value nt and zw functions.
 
