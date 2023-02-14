@@ -2,7 +2,7 @@
 
 # ii-importer
 
-*importer is a tiny tool i coded for use later in a larger project that I called "winthreads".*
+*importer is a tiny tool i coded for use later in larger project.*
 
 ## What does this importer do?
 
