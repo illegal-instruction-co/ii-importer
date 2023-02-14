@@ -6,7 +6,9 @@
 
 namespace ii {
 	class CustomAPI {
+
 	public:
+
 		static wchar_t* GetFileNameFromPath(wchar_t* Path)
 		{
 			wchar_t* LastSlash = NULL;
@@ -37,7 +39,6 @@ namespace ii {
 			OutputBuffer[OutputBufferSize - 1] = NULL;
 			return OutputBuffer;
 		}
-
 
 		static HMODULE WINAPI GetModuleW(_In_opt_ LPCWSTR lpModuleName)
 		{
@@ -161,7 +162,6 @@ namespace ii {
 			}
 			return nullptr;
 		}
-
 
 		static DWORD64 WINAPI GetModuleA(_In_opt_ LPCSTR lpModuleName) {
 			DWORD ModuleNameLength = (DWORD)strlen(lpModuleName) + 1;
