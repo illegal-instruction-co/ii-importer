@@ -5,11 +5,11 @@
 #include <iostream>
 
 namespace ii {
-	class string_toolkit : public toolkit {
+	class StringToolkit : public Toolkit {
 
 	public:
 
-		__forceinline static bool isReadable(char* str) {
+		__forceinline static bool IsReadable(char* str) {
 			if (str == NULL)
 				return false;
 			MEMORY_BASIC_INFORMATION mbi;
@@ -17,7 +17,7 @@ namespace ii {
 			return mbi.Protect & PAGE_READONLY || mbi.Protect & PAGE_READWRITE;
 		}
 
-		__forceinline static bool isAlphaNumeric(char* str) {
+		__forceinline static bool IsAlphaNumeric(char* str) {
 			if (str == NULL)
 				return false;
 			int len = sizeof(str);

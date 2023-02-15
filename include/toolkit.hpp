@@ -1,6 +1,6 @@
 #pragma once 
 namespace ii {
-	class toolkit {
+	class Toolkit {
 
 	};
 }
