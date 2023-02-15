@@ -11,7 +11,7 @@ namespace ii {
 	class Importer final {
 
 	public:
-		Importer(const std::string_view& mod) noexcept : m_moduleName(std::move(mod)) {
+		Importer(const std::string_view& mod) : m_moduleName(mod) {
 			m_module = (HANDLE)CustomAPI::GetModuleA(m_moduleName.data());
 
 			if (!m_module)
