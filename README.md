@@ -10,7 +10,7 @@ This little friend saves you from the burden of defining the function template w
 
 In general, it is planned to be used for undocumented and user mode definitions, aka value nt and zw functions.
 
-*You can call these functions without using WinAPI functions like GetProcAddress, GetModuleHandle thanks to CustomAPI.*
+**You can call these functions without using WinAPI functions like GetProcAddress, GetModuleHandle thanks to CustomAPI.**
 
 ## What did we get rid of?
 
