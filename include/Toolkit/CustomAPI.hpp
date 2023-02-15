@@ -5,11 +5,12 @@
 #include <functional>
 
 namespace ii {
-	class CustomAPI {
-
+	class CustomAPI final {
 	public:
 
-		__forceinline static wchar_t* GetFileNameFromPath(wchar_t* Path)
+		virtual ~CustomAPI() = 0;
+
+		static wchar_t* GetFileNameFromPath(wchar_t* Path)
 		{
 			wchar_t* LastSlash = NULL;
 			for (DWORD i = 0; Path[i] != NULL; i++)
@@ -20,7 +21,7 @@ namespace ii {
 			return LastSlash;
 		}
 
-		__forceinline static wchar_t* RemoveFileExtension(wchar_t* FullFileName, wchar_t* OutputBuffer, DWORD OutputBufferSize)
+		static wchar_t* RemoveFileExtension(wchar_t* FullFileName, wchar_t* OutputBuffer, DWORD OutputBufferSize)
 		{
 			wchar_t* LastDot = NULL;
 			for (DWORD i = 0; FullFileName[i] != NULL; i++)
@@ -40,7 +41,7 @@ namespace ii {
 			return OutputBuffer;
 		}
 
-		__forceinline static HMODULE WINAPI GetModuleW(_In_opt_ LPCWSTR lpModuleName)
+		static HMODULE WINAPI GetModuleW(_In_opt_ LPCWSTR lpModuleName)
 		{
 			struct CLIENT_ID
 			{
@@ -163,7 +164,7 @@ namespace ii {
 			return nullptr;
 		}
 
-		__forceinline static DWORD64 WINAPI GetModuleA(_In_opt_ LPCSTR lpModuleName) {
+		static HMODULE WINAPI GetModuleA(_In_opt_ LPCSTR lpModuleName) {
 			DWORD ModuleNameLength = (DWORD)strlen(lpModuleName) + 1;
 
 			////allocate buffer for the string on the stack:
@@ -175,7 +176,7 @@ namespace ii {
 			HMODULE hReturnModule = GetModuleW(W_ModuleName);
 
 			RtlSecureZeroMemory(W_ModuleName, NewBufferSize);
-			return (DWORD64)hReturnModule;
+			return hReturnModule;
 
 		}
 	};

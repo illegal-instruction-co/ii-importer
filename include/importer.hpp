@@ -1,7 +1,8 @@
 #pragma once 
 
-#include "string_toolkit.hpp"
-#include "custom_api.hpp"
+#include "Toolkit/StringToolkit.hpp"
+#include "Toolkit/CustomAPI.hpp"
+
 #include <functional>
 #include <string_view>
 #include <map>
@@ -11,8 +12,7 @@ namespace ii {
 	class Importer final {
 
 	public:
-		Importer(const std::string_view& mod) : m_moduleName(mod) {
-			m_module = (HANDLE)CustomAPI::GetModuleA(m_moduleName.data());
+		Importer(const std::string_view& mod) : m_moduleName(mod), m_module(CustomAPI::GetModuleA(mod.data())) {
 
 			if (!m_module)
 				throw std::runtime_error(std::string("We could not export from module, because it was not loaded. Module: ") + m_moduleName.data());
@@ -53,8 +53,8 @@ namespace ii {
 
 	private:
 
-		__forceinline std::map<std::string, __int64> Fetch() {
-			std::map<std::string, __int64> res;
+		__forceinline std::map<std::string, uint64_t> Fetch() {
+			std::map<std::string, uint64_t> res;
 
 			PDWORD addr, name;
 			PWORD ordinal;
@@ -64,10 +64,10 @@ namespace ii {
 			ordinal = (PWORD)((LPBYTE)m_module + m_exportDirectory->AddressOfNameOrdinals);
 
 			for (int i = 0; i < m_exportDirectory->AddressOfFunctions; i++) {
-				if (!StringToolkit::IsReadable((char*)m_module + name[i]))
+				if (!StringToolkit::IsReadable((char*)m_module + name[i]).GetAs<bool>())
 					return res;
-				if (StringToolkit::IsAlphaNumeric((char*)m_module + name[i]))
-					res.insert({ std::move(std::string((char*)m_module + name[i])), (__int64)m_module + addr[ordinal[i]] });
+				if (StringToolkit::IsAlphaNumeric((char*)m_module + name[i]).GetAs<bool>())
+					res.insert({ std::move(std::string((char*)m_module + name[i])), (uint64_t)m_module + addr[ordinal[i]] });
 			}
 
 			return res;
@@ -78,7 +78,7 @@ namespace ii {
 		PIMAGE_EXPORT_DIRECTORY m_exportDirectory;
 
 		HANDLE m_module = 0;
-		std::map<std::string, __int64> m_fetchedFunctions;
+		std::map<std::string, uint64_t> m_fetchedFunctions;
 		const std::string_view m_moduleName;
 	};
 }
