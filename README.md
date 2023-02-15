@@ -27,8 +27,8 @@ With the importer it will be like this:
      HANDLE hThread;
      NTSTATUS ntStat = 0;
      DWORD_PTR dwStartAddress = 0;
-     auto exportNtdll = ii::importer("ntdll.dll");
-     ntStat = exportNtdll.invoke<NTSTATUS>("NtQueryInformationThread")(hThread, 9, &dwStartAddress, sizeof(dwStartAddress), NULL);
+     auto exportNtdll = ii::Importer("ntdll.dll");
+     ntStat = exportNtdll.Invoke<NTSTATUS>("NtQueryInformationThread")(hThread, 9, &dwStartAddress, sizeof(dwStartAddress), NULL);
 
 
 ## Build the example
