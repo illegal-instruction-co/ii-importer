@@ -8,41 +8,38 @@
 #include <iostream>
 
 namespace ii {
-	class importer final {
+	class Importer final {
 
 	public:
-		importer(const std::string_view& mod) noexcept : m_moduleName(std::move(mod)) {
+		Importer(const std::string_view& mod) noexcept : m_moduleName(std::move(mod)) {
 			m_module = (HANDLE)CustomAPI::GetModuleA(m_moduleName.data());
 
 			if (!m_module)
-				printf("We could not export from %s, because it was not loaded.", m_moduleName.data()),
-				abort();
+				throw std::runtime_error(std::string("We could not export from module, because it was not loaded. Module: ") + m_moduleName.data());
 
 			m_dosHeader = (PIMAGE_DOS_HEADER)m_module;
 
 			if (m_dosHeader->e_magic != IMAGE_DOS_SIGNATURE)
-				printf("Dos header is wrong of module %s", m_moduleName.data()),
-				abort();
+				throw std::runtime_error(std::string("Dos header is wrong of module ") + m_moduleName.data());
 
 			m_ntHeader = (PIMAGE_NT_HEADERS)((LPBYTE)m_module + m_dosHeader->e_lfanew);
 
 			if (m_ntHeader->Signature != IMAGE_NT_SIGNATURE)
-				printf("Could not found nt header for %s", m_moduleName.data()),
-				abort;
+				throw std::runtime_error(std::string("Could not found nt header for ") + m_moduleName.data());
 
 			if (m_ntHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].VirtualAddress == 0)
-				printf("Export directory could not read for %s", m_moduleName);
+				throw std::runtime_error(std::string("Export directory could not read for ") + m_moduleName.data());
 
 			m_exportDirectory = (PIMAGE_EXPORT_DIRECTORY)((LPBYTE)m_module + m_ntHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].VirtualAddress);
 
-			m_fetchedFunctions = fetch();
+			m_fetchedFunctions = Fetch();
+
 			if (!m_fetchedFunctions.size())
-				printf("Export directory was empty for %s", m_moduleName.data()),
-				abort();
+				throw std::runtime_error(std::string("Export directory was empty for ") + m_moduleName.data());
 		}
 
 		template<typename T>
-		__forceinline auto invoke(const char* fn) {
+		__forceinline auto Invoke(const char* fn) {
 
 			auto it = m_fetchedFunctions.find(fn);
 			if (it == m_fetchedFunctions.end())
@@ -56,7 +53,7 @@ namespace ii {
 
 	private:
 
-		__forceinline std::map<std::string, __int64> fetch() {
+		__forceinline std::map<std::string, __int64> Fetch() {
 			std::map<std::string, __int64> res;
 
 			PDWORD addr, name;
@@ -67,9 +64,9 @@ namespace ii {
 			ordinal = (PWORD)((LPBYTE)m_module + m_exportDirectory->AddressOfNameOrdinals);
 
 			for (int i = 0; i < m_exportDirectory->AddressOfFunctions; i++) {
-				if (!string_toolkit::isReadable((char*)m_module + name[i]))
+				if (!StringToolkit::IsReadable((char*)m_module + name[i]))
 					return res;
-				if (string_toolkit::isAlphaNumeric((char*)m_module + name[i]))
+				if (StringToolkit::IsAlphaNumeric((char*)m_module + name[i]))
 					res.insert({ std::move(std::string((char*)m_module + name[i])), (__int64)m_module + addr[ordinal[i]] });
 			}
 
