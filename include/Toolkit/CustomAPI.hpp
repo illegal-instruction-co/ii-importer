@@ -1,4 +1,6 @@
 #pragma once
+#include "Toolkit.hpp"
+
 #include <Windows.h>
 #include <stdio.h>
 #include <cstdint>
@@ -8,7 +10,9 @@ namespace ii {
 	class CustomAPI final {
 	public:
 
-		virtual ~CustomAPI() = 0;
+		CustomAPI() = delete;
+
+	private:
 
 		static wchar_t* GetFileNameFromPath(wchar_t* Path)
 		{
@@ -164,7 +168,8 @@ namespace ii {
 			return nullptr;
 		}
 
-		static HMODULE WINAPI GetModuleA(_In_opt_ LPCSTR lpModuleName) {
+	public:
+		static HMODULE WINAPI ModuleA(_In_opt_ LPCSTR lpModuleName) {
 			DWORD ModuleNameLength = (DWORD)strlen(lpModuleName) + 1;
 
 			////allocate buffer for the string on the stack:
@@ -176,8 +181,8 @@ namespace ii {
 			HMODULE hReturnModule = GetModuleW(W_ModuleName);
 
 			RtlSecureZeroMemory(W_ModuleName, NewBufferSize);
-			return hReturnModule;
 
+			return hReturnModule;
 		}
 	};
 }

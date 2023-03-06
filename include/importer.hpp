@@ -12,7 +12,7 @@ namespace ii {
 	class Importer final {
 
 	public:
-		Importer(const std::string_view& mod) : m_moduleName(mod), m_module(CustomAPI::GetModuleA(mod.data())) {
+		Importer(const std::string_view& mod) : m_moduleName(mod), m_module(CustomAPI::ModuleA(mod.data())) {
 
 			if (!m_module)
 				throw std::runtime_error(std::string("We could not export from module, because it was not loaded. Module: ") + m_moduleName.data());

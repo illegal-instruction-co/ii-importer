@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-DWORD WINAPI TheThread(LPVOID lpParam)
+DWORD WINAPI TheThread(LPVOID)
 {
 
 	for (;;) {
@@ -22,14 +22,12 @@ int main()
 	auto Kernel32 = ii::Importer("Kernel32.dll");
 	std::cout << Kernel32.Invoke<HMODULE>("GetModuleHandleA")("Kernelbase.dll") << std::endl;
 
-	TCHAR buf[MAX_PATH];
-
-	HANDLE tHandle = Kernel32.Invoke<HANDLE>("CreateThread")(NULL, 0, TheThread, NULL, 0, NULL);
+	const void* tHandle = Kernel32.Invoke<void*>("CreateThread")(NULL, 0, TheThread, NULL, 0, NULL);
 
 	std::cout << "CreateThread returned: " << tHandle << std::endl;
 
 	auto Ntdll = ii::Importer("ntdll.dll");
 	std::cout << "Current processor number: " << Ntdll.Invoke<int>("NtGetCurrentProcessorNumber")() << std::endl;
 
-	getchar();
+	return getchar();
 }
