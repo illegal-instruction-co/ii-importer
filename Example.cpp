@@ -26,8 +26,6 @@ int main()
 
 	const void* tHandle = kernel32.Invoke<void*>("CreateThread")(NULL, 0, TheThread, NULL, 0, NULL);
 
-	CreateThread(NULL, 0, TheThread, NULL, 0, NULL);
-
 	cout << "CreateThread returned: " << tHandle << endl;
 
 	auto ntdll = ii::Importer("ntdll.dll");
