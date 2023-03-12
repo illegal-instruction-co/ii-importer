@@ -7,7 +7,7 @@
 
 using namespace std;
 
-DWORD WINAPI TheThread()
+DWORD WINAPI TheThread(void*)
 {
 	for (;;) {
 		cout << "I am the thread" << endl;
@@ -25,6 +25,8 @@ int main()
 	cout << kernel32.Invoke<HMODULE>("GetModuleHandleA")("Kernelbase.dll") << endl;
 
 	const void* tHandle = kernel32.Invoke<void*>("CreateThread")(NULL, 0, TheThread, NULL, 0, NULL);
+
+	CreateThread(NULL, 0, TheThread, NULL, 0, NULL);
 
 	cout << "CreateThread returned: " << tHandle << endl;
 
