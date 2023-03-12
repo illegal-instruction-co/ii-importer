@@ -2,14 +2,16 @@
 
 #include <Windows.h>
 
+#include <thread>
 #include <iostream>
 
-DWORD WINAPI TheThread(LPVOID)
-{
+using namespace std;
 
+DWORD WINAPI TheThread()
+{
 	for (;;) {
-		std::cout << "I am the thread" << std::endl;
-		Sleep(1000);
+		cout << "I am the thread" << endl;
+		this_thread::sleep_for(chrono::seconds(1));
 	}
 
 	return 0;
@@ -17,17 +19,17 @@ DWORD WINAPI TheThread(LPVOID)
 
 int main()
 {
-	std::cout << "Kernelbase base address is: ";
+	cout << "Kernelbase base address is: ";
 
-	auto Kernel32 = ii::Importer("Kernel32.dll");
-	std::cout << Kernel32.Invoke<HMODULE>("GetModuleHandleA")("Kernelbase.dll") << std::endl;
+	auto kernel32 = ii::Importer("Kernel32.dll");
+	cout << kernel32.Invoke<HMODULE>("GetModuleHandleA")("Kernelbase.dll") << endl;
 
-	const void* tHandle = Kernel32.Invoke<void*>("CreateThread")(NULL, 0, TheThread, NULL, 0, NULL);
+	const void* tHandle = kernel32.Invoke<void*>("CreateThread")(NULL, 0, TheThread, NULL, 0, NULL);
 
-	std::cout << "CreateThread returned: " << tHandle << std::endl;
+	cout << "CreateThread returned: " << tHandle << endl;
 
-	auto Ntdll = ii::Importer("ntdll.dll");
-	std::cout << "Current processor number: " << Ntdll.Invoke<int>("NtGetCurrentProcessorNumber")() << std::endl;
+	auto ntdll = ii::Importer("ntdll.dll");
+	cout << "Current processor number: " << ntdll.Invoke<int>("NtGetCurrentProcessorNumber")() << endl;
 
 	return getchar();
 }
