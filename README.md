@@ -7,6 +7,7 @@
 ## What does this importer do?
 
 This little friend saves you from the burden of defining the function template while importing the internal function you need, as you can see in Example.cpp.
+Also, this tool is very useful for those who want to use functions as hidden on import table.
 
 In general, it is planned to be used for undocumented and user mode definitions, aka value nt and zw functions.
 
@@ -14,7 +15,7 @@ In general, it is planned to be used for undocumented and user mode definitions,
 
 ## What did we get rid of?
 
-**Case: We want to use NtQueryInformationThread.**
+### Case: We want to use NtQueryInformationThread.
 Our usage should have been like this:
 
     HANDLE hThread;
@@ -32,6 +33,17 @@ With the importer it will be like this:
      auto exportNtdll = ii::Importer("ntdll.dll");
      ntStat = exportNtdll.Invoke<NTSTATUS>("NtQueryInformationThread")(hThread, 9, &dwStartAddress, sizeof(dwStartAddress), NULL);
 
+### Case: We want to use functions that are not shown in the import table.
+
+As you can see on our Example.cpp we used CreateThread function for creating new thread.
+
+Without Importer, our import table view would be like this:
+
+![image](https://raw.githubusercontent.com/illegal-instruction-co/ii-importer/main/assets/import_table_1.png)
+
+With Importer, our import table view will be like this:
+
+![image](https://raw.githubusercontent.com/illegal-instruction-co/ii-importer/main/assets/import_table_2.png)
 
 ## Build the example
 Just run build.cmd, your sln or what ever will be appears in "build" directory.
