@@ -1,19 +1,19 @@
 #pragma once
 
-#include <iostream>
+#include <cstdint>
 
 namespace ii {
 	class Toolkit {
 	public:
 		template<typename T>
 		__forceinline static T GetAs() noexcept {
-			return (T)(g_result);
+			return static_cast<T>(g_result);
 		}
 
 	protected:
 		template<typename T>
 		__forceinline static void SetAs(T result) noexcept {
-			g_result = (uint64_t)result;
+			g_result = static_cast<uint64_t>(result);
 		}
 
 	private:
