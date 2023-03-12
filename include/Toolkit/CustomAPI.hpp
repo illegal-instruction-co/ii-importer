@@ -2,8 +2,6 @@
 #include "Toolkit.hpp"
 
 #include <Windows.h>
-#include <stdio.h>
-#include <cstdint>
 #include <functional>
 
 namespace ii {
