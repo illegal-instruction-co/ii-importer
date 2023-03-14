@@ -64,9 +64,9 @@ namespace ii {
 			name = reinterpret_cast<PDWORD>(reinterpret_cast<LPBYTE>(m_module) + m_exportDirectory->AddressOfNames);
 			ordinal = reinterpret_cast<PWORD>(reinterpret_cast<LPBYTE>(m_module) + m_exportDirectory->AddressOfNameOrdinals);
 
-			for (int i = 0; i < m_exportDirectory->NumberOfNames; i++) {
+			for (int i = 0; i < m_exportDirectory->NumberOfNames; i++)
 				res.insert({ std::move(std::string_view(static_cast<char*>(m_module) + name[i])), (uint64_t)m_module + addr[ordinal[i]] });
-			}
+
 			return res;
 		}
 
