@@ -46,9 +46,7 @@ namespace ii {
 			if (it == m_fetchedFunctions.end())
 				throw std::runtime_error(fn + err::runtime6 + m_moduleName.data());
 
-			return [&](...) {
-				return reinterpret_cast<T(__stdcall*)(...)>(it->second);
-			}();
+			return reinterpret_cast<T(__stdcall*)(...)>(it->second);
 		}
 
 	private:
