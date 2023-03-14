@@ -48,7 +48,7 @@ namespace ii {
 
 			return [&](...) {
 				using fn_t = T(__stdcall*)(...);
-				return (fn_t)it->second;
+				return reinterpret_cast<fn_t>(it->second);
 			}();
 		}
 
