@@ -1,6 +1,6 @@
 
 
-# ii-importer
+# ii-importer ![GitHub](https://img.shields.io/github/license/illegal-instruction-co/ii-importer?logo=ii-importer) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/illegal-instruction-co/ii-importer)
 
 *importer is a tiny tool designed to dodge reverse engineers that i coded for use later in larger project.*
 
