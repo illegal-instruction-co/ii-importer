@@ -47,8 +47,7 @@ namespace ii {
 				throw std::runtime_error(fn + err::runtime6 + m_moduleName.data());
 
 			return [&](...) {
-				using fn_t = T(__stdcall*)(...);
-				return reinterpret_cast<fn_t>(it->second);
+				return reinterpret_cast<T(__stdcall*)(...)>(it->second);
 			}();
 		}
 
