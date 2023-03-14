@@ -7,7 +7,7 @@
 ## What does this importer do?
 
 This little friend saves you from the burden of defining the function template while importing the internal function you need, as you can see in Example.cpp.
-Also, this tool is very useful for those who want to use functions as hidden on import table based on simple reason. At the compile time, compiler cant solve your execution of target.
+Also, this tool is very useful for those who want to use functions as hidden on import table based on simple reason. At the compile time, compiler cant solve your execution of target. In this case, i advice use compile time string obfuscation methods as like https://github.com/adamyaxley/Obfuscate.
 
 In general, it is planned to be used for undocumented and user mode definitions, aka value nt and zw functions.
 
