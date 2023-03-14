@@ -35,7 +35,7 @@ namespace ii {
 
 			m_fetchedFunctions = Fetch();
 
-			if (!m_fetchedFunctions.size())
+			if (m_fetchedFunctions.empty())
 				throw std::runtime_error(err::runtime5 + m_moduleName.data());
 		}
 
