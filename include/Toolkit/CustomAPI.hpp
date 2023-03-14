@@ -1,7 +1,7 @@
 #pragma once
-#include "Toolkit.hpp"
 
 #include <Windows.h>
+
 #include <functional>
 
 namespace ii {
@@ -43,7 +43,7 @@ namespace ii {
 			return OutputBuffer;
 		}
 
-		static HMODULE WINAPI GetModuleW(_In_opt_ LPCWSTR lpModuleName)
+		static HMODULE __stdcall GetModuleW(_In_opt_ LPCWSTR lpModuleName)
 		{
 			struct CLIENT_ID
 			{
@@ -167,7 +167,7 @@ namespace ii {
 		}
 
 	public:
-		static HMODULE WINAPI ModuleA(_In_opt_ LPCSTR lpModuleName) {
+		static HMODULE __stdcall ModuleA(_In_opt_ LPCSTR lpModuleName) {
 			DWORD ModuleNameLength = (DWORD)strlen(lpModuleName) + 1;
 
 			////allocate buffer for the string on the stack:
