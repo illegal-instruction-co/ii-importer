@@ -1,5 +1,8 @@
 #pragma once 
 
+#define AY_OBFUSCATE_DEFAULT_KEY ay::generate_key(AY_LINE * __TIME__[1] * __TIME__[2] * __TIME__[3])
+
+#include "Toolkit/Obfuscate.h"
 #include "Toolkit/CustomAPI.hpp"
 
 #include "Error.hpp"
@@ -41,7 +44,6 @@ namespace ii {
 
 		template<typename T>
 		__forceinline auto Invoke(const char* fn) {
-
 			auto it = m_fetchedFunctions.find(fn);
 			if (it == m_fetchedFunctions.end())
 				throw std::runtime_error(fn + err::runtime6 + m_moduleName.data());
@@ -82,3 +84,6 @@ namespace ii {
 		const std::string_view m_moduleName;
 	};
 }
+
+#define II_IMPORTER(name) ii::Importer(std::string_view(AY_OBFUSCATE(name)))
+#define II_STRING AY_OBFUSCATE
