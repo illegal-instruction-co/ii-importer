@@ -1,6 +1,37 @@
+/*
+* MIT License
+*
+* Copyright (c) 2023 illegal instruction
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in all
+* copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*/
+
+#pragma optimize("", on) // set optimization to full
+#pragma comment(linker,"/SECTION:.ii,RE") // set section to read and execute
+#pragma code_seg(push, ".ii") // set code segment to .ii
+#pragma inline_depth(255) // set inline depth to max
+
 #pragma once 
 
-#define AY_OBFUSCATE_DEFAULT_KEY ay::generate_key(AY_LINE * __TIME__[1] * __TIME__[2] * __TIME__[3])
+#ifndef AY_OBFUSCATE_DEFAULT_KEY
+#define AY_OBFUSCATE_DEFAULT_KEY ay::generate_key(AY_LINE * __TIME__[1] * __TIME__[2] * __TIME__[3]) // generate key from line and time
+#endif
 
 #include "Toolkit/Obfuscate.h"
 #include "Toolkit/CustomAPI.hpp"
@@ -85,5 +116,10 @@ namespace ii {
 	};
 }
 
+#ifndef II_IMPORTER
 #define II_IMPORTER(name) ii::Importer(std::string_view(AY_OBFUSCATE(name)))
+#endif
+
+#ifndef II_STRING
 #define II_STRING AY_OBFUSCATE
+#endif
