@@ -22,12 +22,13 @@
 * SOFTWARE.
 */
 
+#pragma once 
+
 #pragma optimize("", on) // set optimization to full
 #pragma comment(linker,"/SECTION:.ii,RE") // set section to read and execute
 #pragma code_seg(push, ".ii") // set code segment to .ii
 #pragma inline_depth(255) // set inline depth to max
-
-#pragma once 
+#pragma inline_recursion(on) // set inline recursion to on
 
 #ifndef AY_OBFUSCATE_DEFAULT_KEY
 #define AY_OBFUSCATE_DEFAULT_KEY ay::generate_key(AY_LINE * __TIME__[1] * __TIME__[2] * __TIME__[3]) // generate key from line and time
