@@ -355,5 +355,10 @@ Just run build.cmd, your sln or what ever will be appears in "build" directory.
 *Required cmake > 3.20*
 
 
+## Attention
+ii-importer does not to present lazy importing option. if you are looking a tool for lazy-importing check:
+https://github.com/JustasMasiulis/lazy_importer
+
 credits:
 custom_api.h
+obfuscate.h
